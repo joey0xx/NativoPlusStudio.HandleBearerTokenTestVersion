@@ -18,8 +18,8 @@ namespace NativoPlusStudio.HandleBearerTokenTest
 
             var asymmetricEncryptDecrypt = new AsymmetricEncryptionAndDecryptionBearerTokenService();
 
-            var encryptedText = asymmetricEncryptDecrypt.AsymmetricEncrypt2(text, publicParameters);
-            asymmetricEncryptDecrypt.AsymmetricDecrypt2(encryptedText, privateParameters);
+            var encryptedText = asymmetricEncryptDecrypt.AsymmetricEncrypt(text, publicParameters);
+            asymmetricEncryptDecrypt.AsymmetricDecrypt(encryptedText, privateParameters);
         }
     }
 }
