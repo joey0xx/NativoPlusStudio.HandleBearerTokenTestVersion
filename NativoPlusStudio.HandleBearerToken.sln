@@ -5,7 +5,7 @@ VisualStudioVersion = 16.0.29905.134
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NativoPlusStudio.HandleBearerToken", "NativoPlusStudio.HandleBearerToken\NativoPlusStudio.HandleBearerToken.csproj", "{692F1D3E-588C-42C6-B7BF-BE1DE05F3DE1}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NativoPlusStudio.HandleBearerTokenTest", "NativoPlusStudio.HandleBearerTokenTest\NativoPlusStudio.HandleBearerTokenTest.csproj", "{EA513E62-8CB9-43EE-B2CD-F75201AF790A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NativoPlusStudio.HandleBearerTokenTest", "NativoPlusStudio.HandleBearerTokenTest\NativoPlusStudio.HandleBearerTokenTest.csproj", "{EA513E62-8CB9-43EE-B2CD-F75201AF790A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

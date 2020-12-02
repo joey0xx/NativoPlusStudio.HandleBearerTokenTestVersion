@@ -1,25 +1,40 @@
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using NativoPlusStudio.HandleBearerToken.Services;
-using System.Security.Cryptography;
+using NativoPlusStudio.HandleBearerToken.Interfaces;
 
 namespace NativoPlusStudio.HandleBearerTokenTest
 {
     [TestClass]
-    public class HandlerBearerTokenTest
+    public class HandlerBearerTokenTest : BaseTestConfiguration
     {
-        [TestMethod]
-        public void TesEncryptAndDecryptMethods()
+        private readonly IAsymmetricEncryptionAndDecryptionBearerTokenService _asymmetricEncryptionAndDecryptionBearerTokenService;
+
+        public HandlerBearerTokenTest()
         {
-            var text = "Hello";
-
-            var rsaCryptoServiceProvider = new RSACryptoServiceProvider();
-            var publicParameters = rsaCryptoServiceProvider.ExportParameters(false);
-            var privateParameters = rsaCryptoServiceProvider.ExportParameters(true);            
-
-            var asymmetricEncryptDecrypt = new AsymmetricEncryptionAndDecryptionBearerTokenService();
-
-            var encryptedText = asymmetricEncryptDecrypt.AsymmetricEncrypt(text, publicParameters);
-            asymmetricEncryptDecrypt.AsymmetricDecrypt(encryptedText, privateParameters);
+            _asymmetricEncryptionAndDecryptionBearerTokenService = serviceProvider.GetRequiredService<IAsymmetricEncryptionAndDecryptionBearerTokenService>();
         }
+        [TestMethod]
+        public string TestEncryptMethods(string text)
+        {
+
+            var response = _asymmetricEncryptionAndDecryptionBearerTokenService.Encrypt(text);
+
+            Assert.IsTrue(response != null);                      
+            return response;
+        }
+
+        [TestMethod]
+        public void TestDecryptMethods()
+        {
+            var textToEncrypt = "Hello";
+            var encryptedText = TestEncryptMethods(textToEncrypt);
+            var response = _asymmetricEncryptionAndDecryptionBearerTokenService.Decrypt(encryptedText);
+
+            Assert.IsTrue(response != null);
+            Assert.AreEqual(response , textToEncrypt);
+
+        }
+
+
     }
 }

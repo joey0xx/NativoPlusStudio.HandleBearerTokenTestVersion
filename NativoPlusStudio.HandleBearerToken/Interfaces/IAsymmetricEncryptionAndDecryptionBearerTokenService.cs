@@ -3,8 +3,10 @@
 namespace NativoPlusStudio.HandleBearerToken.Interfaces
 {
     public interface IAsymmetricEncryptionAndDecryptionBearerTokenService
-    {        
-        string AsymmetricDecrypt(string encryptedText, RSAParameters rsaParameters);        
-        string AsymmetricEncrypt(string privateKey, RSAParameters rsaParameters);
+    {
+        string Encrypt(string text);
+        string Decrypt(string text);
+        //string AsymmetricDecrypt(string encryptedText);        
+        //string AsymmetricEncrypt(string text);
     }
 }
