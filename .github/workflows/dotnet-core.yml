@@ -8,16 +8,18 @@ on:
 
 jobs:
   build:
-
     runs-on: ubuntu-latest
-
+    env:
+      config: 'Release'
+      
     steps:
     - uses: actions/checkout@v2
     - name: Setup .NET Core
       uses: actions/setup-dotnet@v1
       with:
-        dotnet-version: 3.1.301
-     # restore dependencies  
+        dotnet-version: 3.1.101    
+      
+      # restore dependencies  
     - name: Install dependencies
       run: dotnet restore
       
@@ -59,7 +61,6 @@ jobs:
       uses: machine-learning-apps/pr-comment@master
       if: ${{ github.event_name == 'pull_request' }}
       env:
-        GITHUB_TOKEN: ${{ secrets.GIT_HUB_TOKEN }}
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
         path: ${{env.file_name}}
-   
