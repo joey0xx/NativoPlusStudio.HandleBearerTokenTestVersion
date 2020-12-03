@@ -1,6 +1,6 @@
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using NativoPlusStudio.HandleBearerToken.Interfaces;
+using NativoPlusStudio.HandleBearerTokenTestVersion.Interfaces;
 
 namespace NativoPlusStudio.HandleBearerTokenTest
 {
@@ -14,24 +14,24 @@ namespace NativoPlusStudio.HandleBearerTokenTest
             _asymmetricEncryptionAndDecryptionBearerTokenService = serviceProvider.GetRequiredService<IAsymmetricEncryptionAndDecryptionBearerTokenService>();
         }
         [TestMethod]
-        public string TestEncryptMethods(string text)
+        public string TestEncryptMethod(string text)
         {
 
-            var response = _asymmetricEncryptionAndDecryptionBearerTokenService.Encrypt(text);
+            var response = _asymmetricEncryptionAndDecryptionBearerTokenService.AsymmetricEncrypt(text);
 
             Assert.IsTrue(response != null);                      
             return response;
         }
 
         [TestMethod]
-        public void TestDecryptMethods()
+        public void TestDecryptMethod()
         {
             var textToEncrypt = "Hello";
-            var encryptedText = TestEncryptMethods(textToEncrypt);
-            var response = _asymmetricEncryptionAndDecryptionBearerTokenService.Decrypt(encryptedText);
+            var encryptedText = TestEncryptMethod(textToEncrypt);
+            var decryptedMessage = _asymmetricEncryptionAndDecryptionBearerTokenService.AsymmetricDecrypt(encryptedText);
 
-            Assert.IsTrue(response != null);
-            Assert.AreEqual(response , textToEncrypt);
+            Assert.IsTrue(decryptedMessage != null);
+            Assert.AreEqual(decryptedMessage, textToEncrypt);
 
         }
 

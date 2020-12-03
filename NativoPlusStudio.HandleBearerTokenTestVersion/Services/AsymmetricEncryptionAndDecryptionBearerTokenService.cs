@@ -1,10 +1,10 @@
-﻿using NativoPlusStudio.HandleBearerToken.Interfaces;
+﻿using NativoPlusStudio.HandleBearerTokenTestVersion.Interfaces;
 using Serilog;
 using System;
 using System.Security.Cryptography;
 using System.Text;
 
-namespace NativoPlusStudio.HandleBearerToken.Services
+namespace NativoPlusStudio.HandleBearerTokenTestVersion.Services
 {
     public class AsymmetricEncryptionAndDecryptionBearerTokenService : IAsymmetricEncryptionAndDecryptionBearerTokenService
     {
@@ -18,25 +18,32 @@ namespace NativoPlusStudio.HandleBearerToken.Services
             _encryptionConfiguration = encryptionConfiguration;
         }
 
-        public string Encrypt(string text)
+        public string AsymmetricEncrypt(string text)
         {
+             _logger.Information("#AsymmetricEncrypt");
             byte[] data = Encoding.UTF8.GetBytes(text);
             var rsa = _encryptionConfiguration.PublicKey;
             byte[] cipherText = rsa.Encrypt(data, RSAEncryptionPadding.Pkcs1);
-            return Convert.ToBase64String(cipherText);
-        }
 
-        public string Decrypt(string text)
-        {
-            _logger.Information("#AsymmetricEncrypt");
-            byte[] data = Convert.FromBase64String(text);
-            var rsa = _encryptionConfiguration.GeneratedPrivateKey;
-            byte[] cipherText = rsa.Decrypt(data, RSAEncryptionPadding.Pkcs1);
-            var encryptedDataToString = Encoding.UTF8.GetString(cipherText);
+            var encryptedDataToString = Convert.ToBase64String(cipherText);
 
             _logger.Information($"#AsymmetricEncrypted string: {encryptedDataToString}");
 
             return encryptedDataToString;
+            
+        }
+
+        public string AsymmetricDecrypt(string encriptedtext)
+        {
+            _logger.Information("#AsymmetricEncrypt");
+            byte[] data = Convert.FromBase64String(encriptedtext);
+            var rsa = _encryptionConfiguration.GeneratedPrivateKey;
+            byte[] cipherText = rsa.Decrypt(data, RSAEncryptionPadding.Pkcs1);
+            var decryptedMessageToString = Encoding.UTF8.GetString(cipherText);
+
+            _logger.Information($"#AsymmetricEncrypted string: {decryptedMessageToString}");
+
+            return decryptedMessageToString;
         }
 
         //public string AsymmetricEncrypt(string text)

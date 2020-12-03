@@ -1,9 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using NativoPlusStudio.HandleBearerToken.Helper;
+using NativoPlusStudio.HandleBearerTokenTestVersion.Helper;
 using Serilog;
 
 

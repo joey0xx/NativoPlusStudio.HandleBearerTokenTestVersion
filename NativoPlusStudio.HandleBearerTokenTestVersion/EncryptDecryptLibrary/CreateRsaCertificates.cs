@@ -4,9 +4,9 @@ using System;
 using System.Collections.Generic;
 using System.Security.Cryptography;
 using System.Security.Cryptography.X509Certificates;
-using System.Text;
 
-namespace NativoPlusStudio.HandleBearerToken.EncryptDecryptLibrary
+
+namespace NativoPlusStudio.HandleBearerTokenTestVersion.EncryptDecryptLibrary
 {
     public class CreateRsaCertificates
     {

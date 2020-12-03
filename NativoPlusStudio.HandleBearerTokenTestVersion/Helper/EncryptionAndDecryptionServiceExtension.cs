@@ -1,14 +1,14 @@
 ﻿using CertificateManager;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using NativoPlusStudio.HandleBearerToken.EncryptDecryptLibrary;
-using NativoPlusStudio.HandleBearerToken.Interfaces;
-using NativoPlusStudio.HandleBearerToken.Services;
+using NativoPlusStudio.HandleBearerTokenTestVersion.EncryptDecryptLibrary;
+using NativoPlusStudio.HandleBearerTokenTestVersion.Interfaces;
+using NativoPlusStudio.HandleBearerTokenTestVersion.Services;
 using Serilog;
 using System;
 
 
-namespace NativoPlusStudio.HandleBearerToken.Helper
+namespace NativoPlusStudio.HandleBearerTokenTestVersion.Helper
 {
     public static class EncryptionAndDecryptionServiceExtension
     {

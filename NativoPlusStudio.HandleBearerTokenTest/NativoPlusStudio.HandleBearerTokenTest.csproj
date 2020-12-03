@@ -16,7 +16,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\NativoPlusStudio.HandleBearerToken\NativoPlusStudio.HandleBearerToken.csproj" />
+    <ProjectReference Include="..\NativoPlusStudio.HandleBearerTokenTestVersion\NativoPlusStudio.HandleBearerTokenTestVersion.csproj" />
   </ItemGroup>
 
 </Project>
