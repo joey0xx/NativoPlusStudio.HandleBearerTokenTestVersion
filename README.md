@@ -1,1 +1,1 @@
-# NativoPlusStudio.HandleBearerToken
+# NativoPlusStudio.HandleBearerTokenTestVersion
