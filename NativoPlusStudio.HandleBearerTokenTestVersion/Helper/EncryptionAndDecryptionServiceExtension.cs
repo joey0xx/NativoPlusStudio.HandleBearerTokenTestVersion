@@ -51,11 +51,16 @@ namespace NativoPlusStudio.HandleBearerTokenTestVersion.Helper
         public static ILogger BuildCustomLogger(this ILogger log, IConfiguration configuration)
         {
             var loggerConfig = new LoggerConfiguration()
+                  .ReadFrom.Configuration(configuration)
+                      .Enrich.FromLogContext()
+                      .Enrich.WithMachineName()
+                      .Enrich.WithEnvironmentUserName()
                       .CreateLogger();
             return loggerConfig;
         }
 
-        //Testing if I can get the public key from the private key using Chilkat
+        //Testing if I can get the public key from the private key using chilkat-x64 nuget package
+        
         private static string GetPublicKeyFromPrivateKey(string myPrivateKey)
         {           
 
