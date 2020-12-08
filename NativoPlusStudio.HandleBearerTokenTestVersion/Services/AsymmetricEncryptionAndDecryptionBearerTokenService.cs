@@ -1,4 +1,5 @@
-﻿using NativoPlusStudio.HandleBearerTokenTestVersion.Interfaces;
+﻿using NativoPlusStudio.HandleBearerTokenTestVersion.Helper;
+using NativoPlusStudio.HandleBearerTokenTestVersion.Interfaces;
 using Serilog;
 using System;
 using System.Security.Cryptography;
@@ -19,68 +20,44 @@ namespace NativoPlusStudio.HandleBearerTokenTestVersion.Services
         }
 
         public string AsymmetricEncrypt(string text)
-        {
-             _logger.Information("#AsymmetricEncrypt");
-            byte[] data = Encoding.UTF8.GetBytes(text);
-            var rsa = _encryptionConfiguration.PublicKey;
-            byte[] cipherText = rsa.Encrypt(data, RSAEncryptionPadding.Pkcs1);
+        {            
+                if(text != null)
+                {
+                    _logger.Information("#AsymmetricEncrypt");
+                    byte[] data = Encoding.UTF8.GetBytes(text);
+                    var rsa = _encryptionConfiguration.PublicKey;
+                    byte[] cipherText = rsa.Encrypt(data, RSAEncryptionPadding.Pkcs1);
 
-            var encryptedDataToString = Convert.ToBase64String(cipherText);
+                    var encryptedDataToString = Convert.ToBase64String(cipherText);
 
-            _logger.Information($"#AsymmetricEncrypted string: {encryptedDataToString}");
+                    _logger.Information($"#AsymmetricEncrypted string: {encryptedDataToString}");
 
-            return encryptedDataToString;
+                    return encryptedDataToString;
+                }                
             
+
+            return null;
         }
 
         public string AsymmetricDecrypt(string encriptedtext)
         {
-            _logger.Information("#AsymmetricEncrypt");
-            byte[] data = Convert.FromBase64String(encriptedtext);
-            var rsa = _encryptionConfiguration.GeneratedPrivateKey;
-            byte[] cipherText = rsa.Decrypt(data, RSAEncryptionPadding.Pkcs1);
-            var decryptedMessageToString = Encoding.UTF8.GetString(cipherText);
+           
+                if (encriptedtext != null)
+                {
+                    _logger.Information("#AsymmetricEncrypt");
+                    byte[] data = Convert.FromBase64String(encriptedtext);
+                    var rsa = _encryptionConfiguration.GeneratedPrivateKey;
+                    byte[] cipherText = rsa.Decrypt(data, RSAEncryptionPadding.Pkcs1);
+                    var decryptedMessageToString = Encoding.UTF8.GetString(cipherText);
 
-            _logger.Information($"#AsymmetricEncrypted string: {decryptedMessageToString}");
+                    _logger.Information($"#AsymmetricEncrypted string: {decryptedMessageToString}");
 
-            return decryptedMessageToString;
+                    return decryptedMessageToString;
+                }
+            
+            return null; 
         }
 
-        //public string AsymmetricEncrypt(string text)
-        //{
-        //    //_logger.Information("#AsymmetricEncrypt");
-        //    byte[] data = Encoding.UTF8.GetBytes(text);
-        //    byte[] encryptedData;
-
-        //    using (var rsaCryptoServiceProviderWriter = new RSACryptoServiceProvider())
-        //    {
-        //        rsaCryptoServiceProviderWriter.ImportParameters(_encryptionConfiguration.PublicParameters);
-
-        //        encryptedData = rsaCryptoServiceProviderWriter.Encrypt(data, RSAEncryptionPadding.Pkcs1);
-        //    }
-
-        //    var encryptedDataToString = Convert.ToBase64String(encryptedData);
-        //   // _logger.Information($"#AsymmetricEncrypted string: {encryptedDataToString}");
-        //    return encryptedDataToString;
-        //}
-
-
-        //public string AsymmetricDecrypt(string encryptedText)
-        //{
-        //    //_logger.Information("#AsymmetricDecrypt");
-        //    byte[] data = Convert.FromBase64String(encryptedText);
-        //    byte[] decryptedMessage;
-
-        //    using (var rsaCryptoServiceProviderReader = new RSACryptoServiceProvider())
-        //    {
-        //        rsaCryptoServiceProviderReader.ImportParameters(_encryptionConfiguration.PrivateParameters);
-
-        //        decryptedMessage = rsaCryptoServiceProviderReader.Decrypt(data, RSAEncryptionPadding.Pkcs1);
-        //    }
-
-        //    var decryptedMessageToString = Encoding.UTF8.GetString(decryptedMessage);
-        //    //_logger.Information($"#AsymmetricEncrypted string: {decryptedMessageToString}");
-        //    return decryptedMessageToString;
-        //}
+        
     }
 }

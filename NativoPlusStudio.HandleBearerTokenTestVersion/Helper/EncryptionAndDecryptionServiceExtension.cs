@@ -6,29 +6,31 @@ using NativoPlusStudio.HandleBearerTokenTestVersion.Interfaces;
 using NativoPlusStudio.HandleBearerTokenTestVersion.Services;
 using Serilog;
 using System;
-
+using System.Globalization;
+using System.Numerics;
+using System.Security.Cryptography;
 
 namespace NativoPlusStudio.HandleBearerTokenTestVersion.Helper
 {
     public static class EncryptionAndDecryptionServiceExtension
     {
-        public static void AddAsymmetricEncryptionAndDecryptionBearerToken(this IServiceCollection services, string privateKey)
+        public static void AddAsymmetricEncryptionAndDecryptionBearerToken(this IServiceCollection services, string myPrivateKey)
         {
             if (services == null)
             {
                 services = new ServiceCollection();
             }
             services.AddTransient<IAsymmetricEncryptionAndDecryptionBearerTokenService, AsymmetricEncryptionAndDecryptionBearerTokenService>();
-            services.AddSingleton(ConfigureEncryptionKey(privateKey));
+            services.AddSingleton(ConfigureEncryptionKey(myPrivateKey));
 
         }
 
-        private static EncryptionConfiguration ConfigureEncryptionKey(string privateKey)
+        private static EncryptionConfiguration ConfigureEncryptionKey(string myPrivateKey)
         {
-            if(string.IsNullOrEmpty(privateKey))
-            {
-                throw new Exception("The private key is empty");
-            }
+            //if(string.IsNullOrEmpty(privateKey))
+            //{
+            //    throw new Exception("The private key is empty");
+            //}
 
             var serviceProvider = new ServiceCollection()
                 .AddCertificateManager()
@@ -36,13 +38,13 @@ namespace NativoPlusStudio.HandleBearerTokenTestVersion.Helper
 
             var cc = serviceProvider.GetService<CreateCertificates>();
 
-            var cert3072 = CreateRsaCertificates.CreateRsaCertificate(cc, 512);
-
+            var certificate = CreateRsaCertificates.CreateRsaCertificate(cc, 512);
+            
             return new EncryptionConfiguration
             {
-                PrivateKey = privateKey,
-                PublicKey = Keys.CreateRsaPublicKey(cert3072),
-                GeneratedPrivateKey = Keys.CreateRsaPrivateKey(cert3072)
+                MyPrivateKey = myPrivateKey,
+                PublicKey = Keys.CreateRsaPublicKey(certificate),
+                GeneratedPrivateKey = Keys.CreateRsaPrivateKey(certificate)
             };
         }
 
@@ -52,5 +54,28 @@ namespace NativoPlusStudio.HandleBearerTokenTestVersion.Helper
                       .CreateLogger();
             return loggerConfig;
         }
+
+        //Testing if I can get the public key from the private key using Chilkat
+        private static string GetPublicKeyFromPrivateKey(string myPrivateKey)
+        {           
+
+            var key = new Chilkat.PrivateKey();                       
+            key.LoadPem(myPrivateKey);
+
+            //  Step 2: Get the public key object from the private key object.
+            
+            var pubKey = key.GetPublicKey();
+            //var value = "";
+            var publicKey = pubKey.GetXml();
+            return publicKey;
+
+
+            //  Step 3: Save the public key in a desired format.
+            //  (Chilkat can load or save public and private keys in many different formats.  See
+            //  the online reference documentation for more options.)
+
+        }
+
+
     }
 }
